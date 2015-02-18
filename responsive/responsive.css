@@ -127,3 +127,14 @@ and (max-width:500px)
 		-384px 240px;
 	}
 }
+
+@media only screen 
+and (max-width:400px)
+{
+	.software {
+		width:128px; 
+		height:240px; 
+		background:url(software.png) 
+		-512px 240px;
+	}
+}
