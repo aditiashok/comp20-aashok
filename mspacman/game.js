@@ -1,13 +1,14 @@
 function init () {
 
 var my_img = new Image();
-img.src = "pacman10-hp-sprite.png";
+my_img.src = "pacman10-hp-sprite.png";
 
-img.onload = function() {
+my_img.onload = function() {
   canvas = document.getElementById('game_canvas');
   ctx = canvas.getContext('2d');
 
-  ctx.drawImage(img, 15, 3, 3, 3, 0, 0, 3, 3);
+  //Ms. Pac Man Drawing
+  ctx.drawImage(my_img, 81, 23, 19, 20, 0, 80, 19, 20);
 };
 
 }
