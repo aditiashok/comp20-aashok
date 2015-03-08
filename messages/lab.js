@@ -10,7 +10,7 @@ function parse () {
 	//Step 2:create or "open" HTTP request
 	request.open("GET", "data.json", true);
 
-	//Step 4: execute the request 
+	//Step 4: make sure to execute the request 
 	request.send();
 }
 
