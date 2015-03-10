@@ -38,18 +38,9 @@
 						myLat = position.coords.latitude;
 						myLng = position.coords.longitude;
 						renderMap();
+						processRequest();
+						/* logic to execute and send request */
 
-						request.onreadystatechange=parseData;
-
-						//Step 2:create or "open" HTTP request
-						request.open("POST", "https://secret-about-box.herokuapp.com/sendLocation", true);
-
-						request.open("GET", "https://secret-about-box.herokuapp.com/sendLocation", true);
-
-						//Step 4: make sure to execute the request 
-						request.send();
-
-						//send data to server	
 					});
 				}
 				else {
@@ -58,6 +49,28 @@
 				console.log("Leaving getMyLocation()");
 			}
 
+			function processRequest () {
+				var params ="login=LeeMiller&lat=+myLat+lng=+myLng";
+				var url = "https://secret-about-box.herokuapp.com/sendLocation";
+
+				/* logic to send data to website */
+				request.open("POST", url, true);
+
+				request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+				request.onreadystatechange=parseData;
+
+				request.send(params);
+
+				/* logic to get data */
+				request.open("GET", "https://secret-about-box.herokuapp.com/sendLocation", true);
+
+				request.send();
+			}
+
+			function parseData () {
+				
+			}
 			function renderMap()
 			{
 				me = new google.maps.LatLng(myLat, myLng);
