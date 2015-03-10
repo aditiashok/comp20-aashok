@@ -33,7 +33,8 @@
 			
 			function getMyLocation() {
 				console.log("In getMyLocation()");
-				if (navigator.geolocation) { // the navigator.geolocation object is supported on your browser
+				if (navigator.geolocation) {
+
 					navigator.geolocation.getCurrentPosition(function(position) {
 					myLat = position.coords.latitude;
 					myLng = position.coords.longitude;
@@ -59,11 +60,13 @@
 					request.send();
 
 					//send data to server
-					});
+					}
 				}
+
 				else {
 					alert("Geolocation is not supported by your web browser :( ");
 				}
+
 				console.log("Leaving getMyLocation()");
 			}
 
@@ -76,10 +79,12 @@
 						messagesDiv.innerHTML += "<p>" + converted[i]["content"];
 					}
 				}
+
 				else if (request.readyState = 4 && request.status == 304) {
 					alert("No data changed, move along");
 
 				}
+
 				else if (request.readyState == 4 && request.status == 404) {
 					alert("Page not found"); 
 				}
