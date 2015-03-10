@@ -41,7 +41,7 @@
 					});
 				}
 				else {
-					alert("Geolocation is not supported by your web browser.  What a shame!");
+					alert("Geolocation is not supported by your web browser :( ");
 				}
 				console.log("Leaving getMyLocation()");
 			}
@@ -67,6 +67,7 @@
 					infowindow.open(map, marker);
 				});
 				
+				/*
 				// Calling Google Places API
 				var request = {
 					location: me,
@@ -74,9 +75,10 @@
 					types: ['food']
 				};
 				service = new google.maps.places.PlacesService(map);
-				service.search(request, callback);
+				service.search(request, callback); */
 			}
 			
+			/*
 			// Taken from http://code.google.com/apis/maps/documentation/javascript/places.html
 			function callback(results, status)
 			{
@@ -87,7 +89,7 @@
 						createMarker(results[i]);
 					}
 				}
-			}
+			} */
 			
 			function createMarker(place)
 			{
