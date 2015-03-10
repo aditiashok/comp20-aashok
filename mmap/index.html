@@ -26,13 +26,13 @@
 			function init()
 			{
 				map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-				console.log("Call before getMyLocation()");
+				//console.log("Call before getMyLocation()");
 				getMyLocation();
-				console.log("Call after getMyLocation()");
+				//console.log("Call after getMyLocation()");
 			}
 			
 			function getMyLocation() {
-				console.log("In getMyLocation()");
+				//console.log("In getMyLocation()");
 				if (navigator.geolocation) { // the navigator.geolocation object is supported on your browser
 					navigator.geolocation.getCurrentPosition(function(position) {
 						myLat = position.coords.latitude;
@@ -46,7 +46,7 @@
 				else {
 					alert("Geolocation is not supported by your web browser :( ");
 				}
-				console.log("Leaving getMyLocation()");
+				//console.log("Leaving getMyLocation()");
 			}
 
 			function processRequest () {
@@ -69,7 +69,7 @@
 			}
 
 			function parseData () {
-				
+
 			}
 			function renderMap()
 			{
