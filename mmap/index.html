@@ -35,21 +35,30 @@
 				console.log("In getMyLocation()");
 				if (navigator.geolocation) { // the navigator.geolocation object is supported on your browser
 					navigator.geolocation.getCurrentPosition(function(position) {
-						myLat = position.coords.latitude;
-						myLng = position.coords.longitude;
-						renderMap();
+					myLat = position.coords.latitude;
+					myLng = position.coords.longitude;
+					renderMap();
 
-						request.onreadystatechange=parseData;
 
-						//Step 2:create or "open" HTTP request
-						request.open("POST", "https://secret-about-box.herokuapp.com/sendLocation", true);
+					var params ="login=LeeMiller&lat=+myLat+lng=+myLng";
+					var url = "https://secret-about-box.herokuapp.com/sendLocation";
 
-						request.open("GET", "https://secret-about-box.herokuapp.com/sendLocation", true);
+					/* logic to send data to website */
+					request.open("POST", url, true);
 
-						//Step 4: make sure to execute the request 
-						request.send();
+					xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-						//send data to server	
+					request.onreadystatechange=parseData;
+
+					request.send(params);
+					
+
+					/* logic to get data */
+					request.open("GET", "https://secret-about-box.herokuapp.com/sendLocation", true);
+
+					request.send();
+
+					//send data to server
 					});
 				}
 				else {
@@ -57,7 +66,6 @@
 				}
 				console.log("Leaving getMyLocation()");
 			}
-
 
 			function parseData () {
 				if (request.readyState == 4 && request.status == 200) {
