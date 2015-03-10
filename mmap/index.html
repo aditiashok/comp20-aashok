@@ -22,6 +22,7 @@
 			var marker;
 			var infowindow = new google.maps.InfoWindow();
 			var places;
+			var myID ="LeeMiller";
 			
 			function init()
 			{
@@ -38,6 +39,7 @@
 						myLat = position.coords.latitude;
 						myLng = position.coords.longitude;
 						renderMap();
+						//make request call 
 					});
 				}
 				else {
@@ -56,7 +58,7 @@
 				// Create a marker
 				marker = new google.maps.Marker({
 					position: me,
-					title: "Here I Am!"
+					title: myID;
 				});
 				
 				marker.setMap(map);
