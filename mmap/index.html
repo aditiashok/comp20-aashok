@@ -39,6 +39,7 @@
 						renderMap();
 
 						var params ="login=LeeMiller&lat=" + myLat + "&lng=" + myLng;
+						
 						var url = 
 						"https://secret-about-box.herokuapp.com/sendLocation";
 
@@ -46,7 +47,6 @@
 						request.open("POST", url, true);
 
 						request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
 
 						request.onreadystatechange=parseData;
 
