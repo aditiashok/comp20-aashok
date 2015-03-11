@@ -119,14 +119,14 @@
 					title: converted[i]["login"]
 				});
 
+
 				google.maps.event.addListener(marker, 'click', function() {
-					infowindow.setContent(marker.title);
-					infowindow.open(map, marker);
+					infowindow.setContent(this.title);
+					infowindow.open(map, this);
 				});
 
 				marker.setMap(map);
 			
-				
 			}
 			
 		</script>
