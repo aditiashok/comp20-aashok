@@ -89,7 +89,7 @@
 
 			function parseData () {
 				if (request.readyState == 4 && request.status == 200) {
-					//console.log(request.responseText);
+					console.log(request.responseText);
 					converted = JSON.parse(request.responseText);
 					for (i = 0; i < converted.length;i++) {
 						 	handleElement(i);
