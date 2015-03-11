@@ -86,7 +86,7 @@
 						infowindow.setContent(marker.title);
 						infowindow.open(map, marker);
 						});
-						
+
 						marker.setMap(map); 
 					}
 				}			
@@ -104,14 +104,15 @@
 			function renderMap()
 			{
 				me = new google.maps.LatLng(myLat, myLng);
-				
+				var img = "my_img.jpg";
 				// Update map and go there...
 				map.panTo(me);
-	
+			
 				// Create a marker
 				marker = new google.maps.Marker({
 					position: me,
 					title: "LeeMiller"
+					icon: img
 				});
 				
 				marker.setMap(map);
