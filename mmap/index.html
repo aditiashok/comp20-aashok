@@ -45,6 +45,30 @@
 				}
 			}
 
+			function renderMap()
+			{
+				me = new google.maps.LatLng(myLat, myLng);
+				var my_icon = 'green-dot.png';
+				// Update map and go there...
+				map.panTo(me);
+			
+				// Create a marker
+				marker = new google.maps.Marker({
+					position: me,
+					title: "LeeMiller",
+					icon: my_icon
+				});
+				
+				marker.setMap(map);
+					
+				// Open info window on click of marker
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.setContent(marker.title);
+					infowindow.open(map, marker);
+				});
+				
+			}
+
 			
 			function processRequest () {
 				var params ="login=LeeMiller&lat=" + myLat + "&lng=" + myLng;
@@ -76,17 +100,19 @@
 						// Create a marker
 						var display= converted[i]["login"];
 						//console.log(converted[i]["login"]);
-						marker = new google.maps.Marker({
-							position: studentLocation,
-							title: display
-						});
-						
-						google.maps.event.addListener(marker, 'click', function() {
-							infowindow.setContent(marker.title);
-							infowindow.open(map, marker);
-						});
+						if (display != "LeeMiller") {
+							marker = new google.maps.Marker({
+								position: studentLocation,
+								title: display
+							});
+							
+							google.maps.event.addListener(marker, 'click', function() {
+								infowindow.setContent(marker.title);
+								infowindow.open(map, marker);
+							});
 
-						marker.setMap(map); 
+							marker.setMap(map); 
+						}
 					}
 				}			
 
@@ -100,29 +126,7 @@
 				}
 
 			}
-			function renderMap()
-			{
-				me = new google.maps.LatLng(myLat, myLng);
-				var my_icon = 'green-dot.png';
-				// Update map and go there...
-				map.panTo(me);
 			
-				// Create a marker
-				marker = new google.maps.Marker({
-					position: me,
-					title: "LeeMiller",
-					icon: my_icon
-				});
-				
-				marker.setMap(map);
-					
-				// Open info window on click of marker
-				google.maps.event.addListener(marker, 'click', function() {
-					infowindow.setContent(marker.title);
-					infowindow.open(map, marker);
-				});
-				
-			}
 		</script>
 	</head>
 	
