@@ -49,6 +49,7 @@
 			{
 				me = new google.maps.LatLng(myLat, myLng);
 				var my_icon = 'green-dot.png';
+				
 				// Update map and go there...
 				map.panTo(me);
 			
@@ -89,14 +90,11 @@
 			function parseData () {
 				if (request.readyState == 4 && request.status == 200) {
 					//console.log(request.responseText);
-					//canvasDiv = document.getElementById("map_canvas");
 					converted = JSON.parse(request.responseText);
 					for (i = 0; i < converted.length;i++) {
 						/* create a marker with the received data and display it 
 							to a map */
-						// Create a marker
 						var display= converted[i]["login"];
-						//console.log(converted[i]["login"]);
 						if (display != "LeeMiller") {
 
 							studentLocation = new google.maps.LatLng(converted[i]["lat"], converted[i]["lng"]);
