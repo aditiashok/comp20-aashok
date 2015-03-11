@@ -48,14 +48,8 @@
 			function renderMap()
 			{
 				me = new google.maps.LatLng(myLat, myLng);
-				//var my_icon = 'my_image.jpg';
+				var my_icon = 'my_image.jpg';
 				
-				var my_icon = {
-				    src: 'my_image.jpg', // url
-				    scaledSize: new google.maps.Size(50, 50), // scaled size
-				    origin: new google.maps.Point(0,0), // origin
-				    anchor: new google.maps.Point(0, 0) // anchor
-				};
 				// Update map and go there...
 				map.panTo(me);
 				infowindow = new google.maps.InfoWindow();
