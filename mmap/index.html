@@ -94,9 +94,7 @@
 					for (i = 0; i < converted.length;i++) {
 						 	handleElement(i);
 						}
-					}
 				}			
-
 				else if (request.readyState = 4 && request.status == 304) {
 					alert("No data changed, move along");
 
@@ -113,7 +111,6 @@
 							to a map */
 				var display= converted[i]["login"];
 				if (display != "LeeMiller") {
-
 					studentLocation = new google.maps.LatLng(converted[i]["lat"], converted[i]["lng"]);
 
 					marker = new google.maps.Marker({
@@ -127,6 +124,10 @@
 					});
 
 					marker.setMap(map);
+				}
+				else {
+					return;
+				}
 
 			}
 			
