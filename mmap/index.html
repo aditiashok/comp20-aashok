@@ -114,6 +114,7 @@
 			function handleElement(i) {
 				infowindow = new google.maps.InfoWindow();
 				studentLocation = new google.maps.LatLng(converted[i]["lat"], converted[i]["lng"]);
+				
 				var lat2= converted[i]["lat"];
 				var lng2 =converted[i]["lng"];
 
@@ -154,7 +155,7 @@
 				var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
 				var d = R * c; 
 
-				console.log(d);
+				//console.log(d);
 				return d;
 
 			}
