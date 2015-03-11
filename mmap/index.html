@@ -27,9 +27,7 @@
 			function init()
 			{
 				map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-				//console.log("Call before getMyLocation()");
 				getMyLocation();
-				//console.log("Call after getMyLocation()");
 			}
 			
 			function getMyLocation() {
@@ -52,7 +50,7 @@
 
 			function processRequest () {
 				var params ="login=LeeMiller&lat=+myLat+lng=+myLng";
-				var url = "https://secret-about-box.herokuapp.com/sendLocation";
+				var url = "https://www.secret-about-box.herokuapp.com/sendLocation";
 
 				/* logic to send data to website */
 				request.open("POST", url, true);
@@ -64,7 +62,7 @@
 				request.send(params);
 
 				/* logic to get data */
-				request.open("GET", "https://secret-about-box.herokuapp.com/sendLocation", true);
+				request.open("GET", "https://www.secret-about-box.herokuapp.com/sendLocation", true);
 
 				request.send();
 			}
@@ -76,13 +74,6 @@
 					for (i = 0; i < converted.length;i++) {
 						/* create a marker with the received data and display it 
 							to a map */ 
-						//messagesDiv.innerHTML += "<p>" + converted[i]["content"];
-						/*var pos = new google.maps.LatLng(myLat, myLng);
-						marker = new google.maps.Marker({
-							position: me,
-							title: "LeeMiller"
-						}); */
-
 
 						studentLocation = new google.maps.LatLng(converted[i]["lat"], converted[i]["lng"]);
 			
