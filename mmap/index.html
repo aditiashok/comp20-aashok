@@ -118,8 +118,9 @@
 				var lng2 =converted[i]["lng"];
 
 
-				var distance = calc_distance(lat2, lng2, myLat, myLng);
-				console.log(distance);
+				var d = calc_distance(lat2, lng2, myLat, myLng);
+				var distance = d.toPrecision(6);
+				
 
 				var contentString = converted[i]["login"] + " is " + distance + " miles away from you";
 
