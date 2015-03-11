@@ -31,7 +31,7 @@
 			}
 			
 			function getMyLocation() {
-				if (navigator.geolocation) { // the navigator.geolocation object is supported on your browser
+				if (navigator.geolocation) { 
 					navigator.geolocation.getCurrentPosition(function(position) {
 						myLat = position.coords.latitude;
 						myLng = position.coords.longitude;
@@ -106,7 +106,7 @@
 				}
 
 				else if (request.readyState == 4 && request.status == 404) {
-					alert("Hacked by the Chinese!");
+					alert("Page not found :(");
 				}
 
 			}
@@ -114,6 +114,10 @@
 			function handleElement(i) {
 				infowindow = new google.maps.InfoWindow();
 				studentLocation = new google.maps.LatLng(converted[i]["lat"], converted[i]["lng"]);
+
+				var distance = calc_distance(converted[i]["lat"], converted[i]["lng"], myLat, myLng);
+				console.log(distance);
+				var contentString = '<div id = "content">' +' is ' + distance + 'away from you.';
 
 				marker = new google.maps.Marker({
 					position: studentLocation,
@@ -128,6 +132,28 @@
 
 				marker.setMap(map);
 			
+			}
+
+			/* functions to calculate distance */
+			function toRad(x) {
+   				return x * Math.PI / 180;
+			}
+
+			function calc_distance(lat2, lon2, lat1, lon1) {
+				var R = 6371; 
+				var x1 = lat2-lat1;
+				var dLat = toRad(x1);  
+				var x2 = lon2-lon1;
+				var dLon = toRad(x2;) 
+				var a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
+				                Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * 
+				                Math.sin(dLon/2) * Math.sin(dLon/2);  
+				var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+				var d = R * c; 
+
+				console.log(d);
+				return d;
+
 			}
 			
 		</script>
