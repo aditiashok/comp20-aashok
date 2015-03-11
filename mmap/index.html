@@ -31,7 +31,6 @@
 			}
 			
 			function getMyLocation() {
-				//console.log("In getMyLocation()");
 				if (navigator.geolocation) { // the navigator.geolocation object is supported on your browser
 					navigator.geolocation.getCurrentPosition(function(position) {
 						myLat = position.coords.latitude;
@@ -65,7 +64,7 @@
 
 			function parseData () {
 				if (request.readyState == 4 && request.status == 200) {
-					console.log(request.responseText);
+					//console.log(request.responseText);
 					//canvasDiv = document.getElementById("map_canvas");
 					converted = JSON.parse(request.responseText);
 					for (i = 0; i < converted.length;i++) {
