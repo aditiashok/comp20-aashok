@@ -93,14 +93,14 @@
 					converted = JSON.parse(request.responseText);
 					for (i = 0; i < converted.length;i++) {
 						/* create a marker with the received data and display it 
-							to a map */ 
-
-						studentLocation = new google.maps.LatLng(converted[i]["lat"], converted[i]["lng"]);
-			
+							to a map */
 						// Create a marker
 						var display= converted[i]["login"];
 						//console.log(converted[i]["login"]);
 						if (display != "LeeMiller") {
+
+							studentLocation = new google.maps.LatLng(converted[i]["lat"], converted[i]["lng"]);
+
 							marker = new google.maps.Marker({
 								position: studentLocation,
 								title: display
