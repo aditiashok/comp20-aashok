@@ -15,7 +15,7 @@
 			var me = new google.maps.LatLng(myLat, myLng);
 			var studentLocation =  new google.maps.LatLng(0, 0);
 			var myOptions = {
-						zoom: 13, // The larger the zoom number, the bigger the zoom
+						zoom: 13, 
 						center: me,
 						mapTypeId: google.maps.MapTypeId.ROADMAP
 					};
@@ -53,6 +53,12 @@
 				// Update map and go there...
 				map.panTo(me);
 				infowindow = new google.maps.InfoWindow();
+
+				var myLat_precise = myLat.toPrecision(4);
+				var myLng_precise = myLng.toPrecision(4);
+
+				var contString = "LeeMiller (me) is located at lat: " + myLat_precise +
+									 " and lng: " + myLng_precise; 
 			
 				// Create a marker
 				marker = new google.maps.Marker({
@@ -65,7 +71,7 @@
 					
 				// Open info window on click of marker
 				google.maps.event.addListener(marker, 'click', function() {
-					infowindow.setContent(this.title);
+					infowindow.setContent(contString);
 					infowindow.open(map, this);
 				});
 				
@@ -112,7 +118,8 @@
 			}
 
 			function handleElement(i) {
-				studentLocation = new google.maps.LatLng(converted[i]["lat"], converted[i]["lng"]);
+				studentLocation = new google.maps.LatLng(converted[i]["lat"], 
+														 converted[i]["lng"]);
 				
 				var lat2= converted[i]["lat"];
 				var lng2 =converted[i]["lng"];
@@ -122,7 +129,8 @@
 				var distance = d.toPrecision(4);
 				
 
-				var contentString = converted[i]["login"] + " is " + distance + " miles away from you";
+				var contentString = converted[i]["login"] + " is " + distance + 
+									" miles away from you";
 
 				infowindow = new google.maps.InfoWindow({
 					content: contentString
