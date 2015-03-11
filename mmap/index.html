@@ -119,8 +119,8 @@
 				var lng2 =converted[i]["lng"];
 
 
-				//var distance = calc_distance(lat2, lng2, myLat, myLng);
-				//console.log(distance);
+				var distance = calc_distance(lat2, lng2, myLat, myLng);
+				console.log(distance);
 
 				/*var contentString = '<div id = "content">' +' is ' + distance + 'away from you.'; */
 
@@ -139,28 +139,29 @@
 			
 			}
 
-			/*
-			/* functions to calculate distance 
-			function toRad(x) {
-   				return x * Math.PI / 180;
-			}
 
+			Number.prototype.toRad = function() {
+   					return this * Math.PI / 180;
+			}	
+
+
+			
 			function calc_distance(lat2, lon2, lat1, lon1) {
-				var R = 6371; 
+				var R = 3959; // km 
+				//has a problem with the .toRad() method below.
 				var x1 = lat2-lat1;
-				var dLat = toRad(x1);  
+				var dLat = x1.toRad();  
 				var x2 = lon2-lon1;
-				var dLon = toRad(x2); 
+				var dLon = x2.toRad();  
 				var a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
 				                Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * 
 				                Math.sin(dLon/2) * Math.sin(dLon/2);  
 				var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
 				var d = R * c; 
 
-				//console.log(d);
 				return d;
 
-			}*/
+			}
 			
 		</script>
 	</head>
