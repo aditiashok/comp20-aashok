@@ -116,9 +116,9 @@
 
 				marker = new google.maps.Marker({
 					position: studentLocation,
-					title: display
+					title: converted[i]["login"]
 				});
-				
+
 				google.maps.event.addListener(marker, 'click', function() {
 					infowindow.setContent(marker.title);
 					infowindow.open(map, marker);
