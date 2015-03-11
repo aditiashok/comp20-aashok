@@ -64,6 +64,7 @@
 
 			function parseData () {
 				if (request.readyState == 4 && request.status == 200) {
+					console.log(request.responseText);
 					//canvasDiv = document.getElementById("map_canvas");
 					converted = JSON.parse(request.responseText);
 					for (i = 0; i < converted.length;i++) {
