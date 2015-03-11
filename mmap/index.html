@@ -112,7 +112,6 @@
 			}
 
 			function handleElement(i) {
-				infowindow = new google.maps.InfoWindow();
 				studentLocation = new google.maps.LatLng(converted[i]["lat"], converted[i]["lng"]);
 				
 				var lat2= converted[i]["lat"];
@@ -122,7 +121,11 @@
 				var distance = calc_distance(lat2, lng2, myLat, myLng);
 				console.log(distance);
 
-				/*var contentString = '<div id = "content">' +' is ' + distance + 'away from you.'; */
+				var contentString = converted[i]["login"]+ ' ' <div id = "content"> +' is ' + distance + 'away from you';
+
+				infowindow = new google.maps.InfoWindow({
+					content: contentString
+				});
 
 				marker = new google.maps.Marker({
 					position: studentLocation,
