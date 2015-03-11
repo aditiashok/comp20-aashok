@@ -134,7 +134,7 @@
 
 
 				google.maps.event.addListener(marker, 'click', function() {
-					infowindow.setContent(this.title);
+					infowindow.setContent(contentString);
 					infowindow.open(map, this);
 				});
 
