@@ -92,7 +92,10 @@
 					console.log(request.responseText);
 					converted = JSON.parse(request.responseText);
 					for (i = 0; i < converted.length;i++) {
-						 	handleElement(i);
+						 	var display= converted[i]["login"];
+							if (display != "LeeMiller") {
+								handleElement(i);
+							}
 						}
 				}			
 				else if (request.readyState = 4 && request.status == 304) {
@@ -107,28 +110,20 @@
 			}
 
 			function handleElement(i) {
-			/* create a marker with the received data and display it 
-							to a map */
-				var display= converted[i]["login"];
-				if (display != "LeeMiller") {
-					studentLocation = new google.maps.LatLng(converted[i]["lat"], converted[i]["lng"]);
+				studentLocation = new google.maps.LatLng(converted[i]["lat"], converted[i]["lng"]);
 
-					marker = new google.maps.Marker({
-						position: studentLocation,
-						title: display
-					});
-					
-					google.maps.event.addListener(marker, 'click', function() {
-						infowindow.setContent(marker.title);
-						infowindow.open(map, marker);
-					});
+				marker = new google.maps.Marker({
+					position: studentLocation,
+					title: display
+				});
+				
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.setContent(marker.title);
+					infowindow.open(map, marker);
+				});
 
-					marker.setMap(map);
-				}
-				else {
-					return;
-				}
-
+				marker.setMap(map);
+				
 			}
 			
 		</script>
