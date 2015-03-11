@@ -50,7 +50,7 @@
 
 			function processRequest () {
 				var params ="login=LeeMiller&lat=+myLat+lng=+myLng";
-				var url = "https://www.secret-about-box.herokuapp.com/sendLocation";
+				var url = "https://secret-about-box.herokuapp.com/sendLocation";
 
 				/* logic to send data to website */
 				request.open("POST", url, true);
@@ -62,7 +62,7 @@
 				request.send(params);
 
 				/* logic to get data */
-				request.open("GET", "https://www.secret-about-box.herokuapp.com/sendLocation", true);
+				request.open("GET", "https://secret-about-box.herokuapp.com/sendLocation", true);
 
 				request.send();
 			}
