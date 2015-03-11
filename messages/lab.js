@@ -22,6 +22,7 @@ function parseData () {
 			messagesDiv.innerHTML += "<p>" + converted[i]["content"];
 		}
 	}
+	
 	else if (request.readyState = 4 && request.status == 304) {
 		alert("No data changed, move along");
 
