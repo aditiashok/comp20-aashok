@@ -37,8 +37,17 @@
 						myLat = position.coords.latitude;
 						myLng = position.coords.longitude;
 						renderMap();
-						processRequest();
-						/* logic to execute and send request */
+						var params ="login=LeeMiller&lat=+myLat+lng=+myLng";
+						var url = "https://secret-about-box.herokuapp.com/sendLocation";
+
+						/* logic to send data to website */
+						request.open("POST", url, true);
+
+						request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+						request.onreadystatechange=parseData;
+
+						request.send(params);
 
 					});
 				}
@@ -48,11 +57,11 @@
 				//console.log("Leaving getMyLocation()");
 			}
 
+			/*
 			function processRequest () {
 				var params ="login=LeeMiller&lat=+myLat+lng=+myLng";
 				var url = "https://secret-about-box.herokuapp.com/sendLocation";
 
-				/* logic to send data to website */
 				request.open("POST", url, true);
 
 				request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -60,7 +69,7 @@
 				request.onreadystatechange=parseData;
 
 				request.send(params);
-			}
+			} */
 
 			function parseData () {
 				if (request.readyState == 4 && request.status == 200) {
