@@ -44,7 +44,6 @@
 				else {
 					alert("Geolocation is not supported by your web browser :( ");
 				}
-				//console.log("Leaving getMyLocation()");
 			}
 
 			
@@ -76,12 +75,13 @@
 						studentLocation = new google.maps.LatLng(converted[i]["lat"], converted[i]["lng"]);
 			
 						// Create a marker
+						/*
 						marker = new google.maps.Marker({
 							position: studentLocation,
 							title: converted[i]["login"]
 						});
 						
-						marker.setMap(map);
+						marker.setMap(map); */
 					}
 				}			
 
