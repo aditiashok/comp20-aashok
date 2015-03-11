@@ -52,6 +52,7 @@
 				
 				// Update map and go there...
 				map.panTo(me);
+				infowindow = new google.maps.InfoWindow();
 			
 				// Create a marker
 				marker = new google.maps.Marker({
@@ -64,8 +65,8 @@
 					
 				// Open info window on click of marker
 				google.maps.event.addListener(marker, 'click', function() {
-					infowindow.setContent(marker.title);
-					infowindow.open(map, marker);
+					infowindow.setContent(this.title);
+					infowindow.open(map, this);
 				});
 				
 			}
