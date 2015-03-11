@@ -76,10 +76,15 @@
 			
 						// Create a marker
 						var display= converted[i]["login"];
-						console.log(converted[i]["login"]);
+						//console.log(converted[i]["login"]);
 						marker = new google.maps.Marker({
 							position: studentLocation,
 							title: display
+						});
+						
+						google.maps.event.addListener(marker, 'click', function() {
+						infowindow.setContent(marker.title);
+						infowindow.open(map, marker);
 						});
 						
 						marker.setMap(map); 
