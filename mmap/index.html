@@ -104,6 +104,13 @@
 			{
 				me = new google.maps.LatLng(myLat, myLng);
 				var my_icon = 'my_image.jpg';
+
+				var my_icon = new google.maps.MarkerImage(
+            		"my_image.jpg", //url
+            		new google.maps.Size(50px, 50px), //size
+            		//new google.maps.Point(0,0), //origin
+            		//new google.maps.Point(anchor_left, anchor_top) //anchor 
+    			);
 				// Update map and go there...
 				map.panTo(me);
 			
