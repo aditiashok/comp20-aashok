@@ -50,7 +50,6 @@
 				me = new google.maps.LatLng(myLat, myLng);
 				var my_icon = 'my_image.jpg';
 				
-				// Update map and go there...
 				map.panTo(me);
 				infowindow = new google.maps.InfoWindow();
 
@@ -60,7 +59,6 @@
 				var contString = "LeeMiller (me) is located at lat: " + myLat_precise +
 									 " and lng: " + myLng_precise; 
 			
-				// Create a marker
 				marker = new google.maps.Marker({
 					position: me,
 					title: "LeeMiller",
@@ -69,7 +67,6 @@
 				
 				marker.setMap(map);
 					
-				// Open info window on click of marker
 				google.maps.event.addListener(marker, 'click', function() {
 					infowindow.setContent(contString);
 					infowindow.open(map, this);
@@ -84,7 +81,6 @@
 				var url = 
 				"https://secret-about-box.herokuapp.com/sendLocation";
 
-				/* logic to send data to website */
 				request.open("POST", url, true);
 
 				request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -96,7 +92,6 @@
 
 			function parseData () {
 				if (request.readyState == 4 && request.status == 200) {
-					//console.log(request.responseText);
 					converted = JSON.parse(request.responseText);
 					for (i = 0; i < converted.length;i++) {
 				      	var display= converted[i]["login"];
@@ -159,8 +154,7 @@
 
 			
 			function calc_distance(lat2, lon2, lat1, lon1) {
-				var R = 3959; // km 
-				//has a problem with the .toRad() method below.
+				var R = 3959; 
 				var x1 = lat2-lat1;
 				var dLat = x1.toRad();  
 				var x2 = lon2-lon1;
