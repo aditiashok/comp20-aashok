@@ -7,6 +7,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script>
 	
+		var count = 0;
 		/* to get the text typed in: document.getElementById("msg").value; */
 		$(document).ready(function () {
    			 $( "#msg" ).keypress(function(e) {
@@ -14,16 +15,21 @@
    			 			var date = timeStamp();
    			 			var input = $("#msg").val(); 
    			 			var text = date + " - " + input;
-   			 			console.log(text);
-   			 			$( "#log" ).prepend('<p>' + text + '</p>');
-   			 			localStorage.setItem("message", text);
+   			 			//console.log(text);
+   			 			//$( "#log" ).prepend('<p>' + text + '</p>');
+   			 			localStorage[timeStamp()] = text; // need to get this to hash to beginning
+   			 			
+   			 			reload();
+   			 			//localStorage.clear();
 				}
 			});
+
 
  
 		}); 
 
-		/* This function was pulled from github- source is in README */
+		/* This function was pulled from github- source is in README 
+		https://gist.github.com/hurjas/2660489 */
 		function timeStamp() {
 			// Create a date object with the current time
 			  var now = new Date();
@@ -53,6 +59,19 @@
 			// Return the formatted string
 			  return date.join("/") + " " + time.join(":") + " " + suffix;
 	}
+
+ 	
+	function reload()
+	{
+		elem = document.getElementById("log");
+		output = "";
+
+		for (key in localStorage) {
+			output = "<p>" + localStorage[key] + "</p>\n" + output;
+			//$( "#log" ).prepend('<p>' + localStorage[key] + '</p>');
+		}
+		elem.innerHTML = output;
+	} 
 
 	</script>
 </head>
