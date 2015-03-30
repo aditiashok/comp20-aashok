@@ -10,17 +10,16 @@
 		var count = 0;
 		/* to get the text typed in: document.getElementById("msg").value; */
 		$(document).ready(function () {
+			 reload();
    			 $( "#msg" ).keypress(function(e) {
    			 	if (e.which == 13){
    			 			var date = timeStamp();
    			 			var input = $("#msg").val(); 
    			 			var text = date + " - " + input;
-   			 			//console.log(text);
-   			 			//$( "#log" ).prepend('<p>' + text + '</p>');
-   			 			localStorage[timeStamp()] = text; // need to get this to hash to beginning
+   			 			sessionStorage[timeStamp()] = text; beginning
    			 			
    			 			reload();
-   			 			//localStorage.clear();
+   			 			clear_text();
 				}
 			});
 
@@ -66,12 +65,15 @@
 		elem = document.getElementById("log");
 		output = "";
 
-		for (key in localStorage) {
-			output = "<p>" + localStorage[key] + "</p>\n" + output;
-			//$( "#log" ).prepend('<p>' + localStorage[key] + '</p>');
+		for (key in sessionStorage) {
+			output = "<p>" + sessionStorage[key] + "</p>\n" + output;
 		}
 		elem.innerHTML = output;
 	} 
+
+	function clear_text() {
+    	document.getElementById("msg").value="";
+	}
 
 	</script>
 </head>
