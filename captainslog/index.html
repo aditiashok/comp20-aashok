@@ -7,8 +7,6 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script>
 	
-		var count = 0;
-		/* to get the text typed in: document.getElementById("msg").value; */
 		$(document).ready(function () {
 			 reload();
    			 $( "#msg" ).keypress(function(e) {
@@ -16,14 +14,12 @@
    			 			var date = timeStamp();
    			 			var input = $("#msg").val(); 
    			 			var text = date + " - " + input;
-   			 			sessionStorage[timeStamp()] = text; beginning
+   			 			sessionStorage[timeStamp()] = text; 
    			 			
    			 			reload();
    			 			clear_text();
 				}
 			});
-
-
  
 		}); 
 
