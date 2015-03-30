@@ -14,6 +14,7 @@
    			 			var text = $("#msg").val(); //
    			 			console.log(text);
    			 			$( "#log" ).prepend('<p>' + text + '</p>');
+   			 			localStorage.setItem("message", text);
 				}
 			});
 
