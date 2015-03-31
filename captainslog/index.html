@@ -14,8 +14,7 @@
    			 			var date = timeStamp();
    			 			var input = $("#msg").val(); 
    			 			var text = date + " - " + input;
-   			 			sessionStorage[timeStamp()] = text; 
-   			 			
+   			 			localStorage[timeStamp()] = text; 			
    			 			reload();
    			 			clear_text();
 				}
@@ -61,8 +60,8 @@
 		elem = document.getElementById("log");
 		output = "";
 
-		for (key in sessionStorage) {
-			output = "<p>" + sessionStorage[key] + "</p>\n" + output;
+		for (key in localStorage) {
+			output = "<p>" + localStorage[key] + "</p>\n" + output;
 		}
 		elem.innerHTML = output;
 	} 
