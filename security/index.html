@@ -1,4 +1,92 @@
 <!DOCTYPE html>
-<html>
+<html lang = "en">
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+        <link rel ="stylesheet" href="style.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    </head>
+
+<h1> Security Assessment of the Real Marauder's Map Server </h1>
+<p> by Aditi Ashok <p>
+
+<h2> Introduction </h2>
+<div class ="body_paragraph"> 
+This assignment tests the security of the Marauder's Map web application developed by Kalina Allen. The Marauder's Map is a product that: 
+<ul>
+    <li> Retrieves your current location and sends your current location to a datastore. </li>
+    <li> Retrieves and displays the locations of people in the class on the map. </li>
+</ul>
+</div>
+<div class ="body_paragraph"> 
+The initial stage of the Marauder's Map sent the user's location to a blackbox server created by Ming Chow. Then, Kalina, at her client's request, modified the project to send location to a server she had created.
+<br>
+</div>
+<div class ="body_paragraph"> 
+This report aims to find and assess the vulnerabilities in the server and the Marauder's Map that would make it unsafe for widespread use. I will aim to find vulnerabilities in the code itself, and not in the methods specified to create the project.    
+</div>
+
+<h2> Methodology </h2>
+<div class ="body_paragraph"> 
+First, "black-box" testing was carried out, meaning that attacks were made without viewing source code, using tools such as curl. Then, I reviewed the code for other vulnerabilities.  
+</div>
+
+<h2> Abstract of Findings </h2>
+<div class ="body_paragraph"> 
+The abstract of findings goes here
+</div>
+
+<h2> Issues Found </h2>
+<h3> 1. Cross-Site Scripting (XSS) </h3>
+
+<h4> Location </h4>
+<div class ="body_paragraph"> 
+Affects the GET API
+</div>
+
+<h4> Severity </h4>
+<div class ="body_paragraph"> 
+High. Since the website is driven by user input, issues such as this one pose a high risk since one rogue user could cause the entire server to crash and thus cause people not to want to use the product.
+</div>
+
+<h4> Severity </h4>
+<div class ="body_paragraph"> 
+High. Since the website is driven by user input, issues such as this one pose a high risk since one rogue user could cause the entire server to crash and thus cause people not to want to use the product.
+</div>
+
+<h4> Description of Issue </h4>
+<div class ="body_paragraph"> 
+Since data sent via the POST API is not escaped, so if someone includes Javascript or HTML in place of a login name, it will automatically execute. Here is an example of injecting a script into the HTML code. As you can see, the request executed and the request is visible in the JSON returned.
+</div>
+<img src ="hacking1.png" alt ="First Screenshot">    
+
+<h4> Proof of Vulnerability </h4>
+<div class ="body_paragraph"> 
+As you can see in the image below, the script has been injected into the server and the alert window saying "hacked" pops up when the page is loaded.
+</div>
+<img src ="ontheserver.png" alt ="First Screenshot">  
+
+
+<h4> Resolution </h4>
+<div class ="body_paragraph"> 
+To resolve the issue, input must be escaped before it enters the database. There are certain characters that are commonly interpreted as code and thus make web applications vulnerable to XSS. You can escape characters with HTML entity encoding to prevent a script, style, or event handler from executing. Some common characters to escape include:
+
+<ul>
+    <li> & -> & amp</li>
+    <li> < -> & lt</li>
+    <li> > -> & gt</li>
+    <li> " -> & quot</li>
+</ul>
+
+ESAPI can be used to escape the HTML entity as follows: </div>
+
+<div class ="body_paragraph"> 
+String safe = ESAPI.encoder( ).encodeForHTML(request.getParameter("input"));
+</div>
+
+<h3> 2. Next Issue </h3>
+
+
 
 </html>
