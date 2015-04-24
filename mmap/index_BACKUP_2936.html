@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<title>Maurader's Map</title>
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true&amp;libraries=places"></script>
+		<link rel="stylesheet" href="mmap_style.css" />
+		
+		<script>
+			var myLat = 0;
+			var myLng = 0;
+			var request = new XMLHttpRequest();
+			var me = new google.maps.LatLng(myLat, myLng);
+			var studentLocation =  new google.maps.LatLng(0, 0);
+			var myOptions = {
+						zoom: 13, 
+						center: me,
+						mapTypeId: google.maps.MapTypeId.ROADMAP
+					};
+			var map;
+			var marker;
+			var infowindow = new google.maps.InfoWindow();
+			var places;
+			
+			function init()
+			{
+				map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+				getMyLocation();
+			}
+			
+			function getMyLocation() {
+				if (navigator.geolocation) { 
+					navigator.geolocation.getCurrentPosition(function(position) {
+						myLat = position.coords.latitude;
+						myLng = position.coords.longitude;
+						renderMap();
+						processRequest();
+
+					});
+				}
+				else {
+					alert("Geolocation is not supported by your web browser :( ");
+				}
+			}
+
+			function renderMap()
+			{
+				me = new google.maps.LatLng(myLat, myLng);
+				var my_icon = 'my_image.jpg';
+				
+				map.panTo(me);
+				infowindow = new google.maps.InfoWindow();
+
+				var myLat_precise = myLat.toPrecision(6);
+				var myLng_precise = myLng.toPrecision(6);
+
+				var contString = "LeeMiller (me) is located at lat: " + myLat_precise +
+									 " and lng: " + myLng_precise; 
+			
+				marker = new google.maps.Marker({
+					position: me,
+					title: "LeeMiller",
+					icon: my_icon
+				});
+				
+				marker.setMap(map);
+					
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.setContent(contString);
+					infowindow.open(map, this);
+				});
+				
+			}
+
+			
+			function processRequest () {
+				var params ="login=LeeMiller&lat=" + myLat + "&lng=" + myLng;
+						
+				var url = 
+				"https://damp-retreat-1013.herokuapp.com/sendLocation";
+<<<<<<< HEAD
+=======
+;
+>>>>>>> 6e4c652c43ed9b8a1ca9c9be259004e970feda31
+
+				request.open("POST", url, true);
+
+				request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+				request.onreadystatechange=parseData;
+
+				request.send(params);
+			} 
+
+			function parseData () {
+				if (request.readyState == 4 && request.status == 200) {
+					converted = JSON.parse(request.responseText);
+					for (i = 0; i < converted.length;i++) {
+				      	var display= converted[i]["login"];
+						if (display != "LeeMiller") {
+							handleElement(i);
+						}
+			    
+					}
+				}			
+				else if (request.readyState = 4 && request.status == 304) {
+					alert("No data changed, move along");
+
+				}
+
+				else if (request.readyState == 4 && request.status == 404) {
+					alert("Page not found :(");
+				}
+
+			}
+
+			function handleElement(i) {
+				studentLocation = new google.maps.LatLng(converted[i]["lat"], 
+														 converted[i]["lng"]);
+				
+				var lat2= converted[i]["lat"];
+				var lng2 =converted[i]["lng"];
+
+
+				var d = calc_distance(lat2, lng2, myLat, myLng);
+				var distance = d.toPrecision(4);
+				
+
+				var contentString = converted[i]["login"] + " is " + distance + 
+									" miles away from you";
+
+				infowindow = new google.maps.InfoWindow({
+					content: contentString
+				});
+
+				marker = new google.maps.Marker({
+					position: studentLocation,
+					title: converted[i]["login"]
+				});
+
+
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.setContent(contentString);
+					infowindow.open(map, this);
+				});
+
+				marker.setMap(map);
+			
+			}
+
+
+			Number.prototype.toRad = function() {
+   					return this * Math.PI / 180;
+			}	
+
+
+			
+			function calc_distance(lat2, lon2, lat1, lon1) {
+				var R = 3959; 
+				var x1 = lat2-lat1;
+				var dLat = x1.toRad();  
+				var x2 = lon2-lon1;
+				var dLon = x2.toRad();  
+				var a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
+				                Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * 
+				                Math.sin(dLon/2) * Math.sin(dLon/2);  
+				var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+				var d = R * c; 
+
+				return d;
+
+			}
+			
+		</script>
+	</head>
+	
+	<body onload="init()">
+		<div id="map_canvas"></div>
+	</body>
+</html>
