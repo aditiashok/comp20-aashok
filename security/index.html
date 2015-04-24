@@ -9,20 +9,25 @@
     </head>
 
 <h1> Security Assessment of the Real Marauder's Map Server </h1>
-<p> by Aditi Ashok <p>
+<p> by <a href= "http://aditiashok.github.io/">Aditi Ashok </a><p>
 
 <h2> Introduction </h2>
 <div class ="body_paragraph"> 
-This assignment tests the security of the Marauder's Map web application developed by Kalina Allen. The Marauder's Map is a product that: 
+This assignment tests the security of the <a href ="http://damp-depths-5551.herokuapp.com/">Marauder's Map web application server </a>developed by <a href= "http://kallen07.github.io/">@kallen07</a> for <a href = "http://tuftsdev.github.io/WebProgramming/assignments/a4.html">Comp20 Assignment 4</a>. The Marauder's Map is a product that: 
 <ul>
     <li> Retrieves your current location and sends your current location to a datastore. </li>
     <li> Retrieves and displays the locations of people in the class on the map. </li>
 </ul>
 </div>
 <div class ="body_paragraph"> 
-The initial stage of the Marauder's Map sent the user's location to a blackbox server created by Ming Chow. Then, Kalina, at her client's request, modified the project to send location to a server she had created.
+The initial stage of the Marauder's Map sent the user's location to a blackbox server created by <a href="http://mchow01.github.io/">@mchow01</a>. Then, kallen07, at her client's request, modified the project to send location to a server she had created.
 <br>
 </div>
+
+<div class ="body_paragraph"> 
+For the purpose of this report, vulnerabilities will be defined as both places where the code can be broken and faults with the overall design of the project. Because the description of what kallen07 was asked to do do has many places for attack, I will delve into making the overall specifications more secure.
+</div>
+
 <div class ="body_paragraph"> 
 This report aims to find and assess the vulnerabilities in the server and the Marauder's Map that would make it unsafe for widespread use. I will aim to find vulnerabilities in the code itself, and not in the methods specified to create the project.    
 </div>
@@ -34,7 +39,7 @@ First, "black-box" testing was carried out, meaning that attacks were made witho
 
 <h2> Abstract of Findings </h2>
 <div class ="body_paragraph"> 
-The abstract of findings goes here
+One of the biggest security issues in this project is caused by not validating or checking if the input that the user provides for fields such as their log in name is correct. If the information passed in to the website is not correct, it is possible for an attacker to change the code of the website by putting in faulty input to cause an annoying popup, redirect the page, or more. The rest of the vulnerabilities in this page stem from the lack of privacy of the data passed into this object. An outside user can not only access but also modify the data on the website if they know the login names, which is inherently a huge security and functionality risk.
 </div>
 
 <h2> Issues Found </h2>
@@ -42,12 +47,7 @@ The abstract of findings goes here
 
 <h4> Location </h4>
 <div class ="body_paragraph"> 
-Affects the GET API
-</div>
-
-<h4> Severity </h4>
-<div class ="body_paragraph"> 
-High. Since the website is driven by user input, issues such as this one pose a high risk since one rogue user could cause the entire server to crash and thus cause people not to want to use the product.
+Affects both the POST and GET APIs. The incorrect data is sent through the POST API, but since a user can enter whatever data they want, it is in the GET API where the vulnerability can be taken care of.
 </div>
 
 <h4> Severity </h4>
@@ -59,13 +59,13 @@ High. Since the website is driven by user input, issues such as this one pose a 
 <div class ="body_paragraph"> 
 Since data sent via the POST API is not escaped, so if someone includes Javascript or HTML in place of a login name, it will automatically execute. Here is an example of injecting a script into the HTML code. As you can see, the request executed and the request is visible in the JSON returned.
 </div>
-<img src ="hacking1.png" alt ="First Screenshot">    
+<img src ="images/hacking1.png" alt ="First Screenshot">    
 
 <h4> Proof of Vulnerability </h4>
 <div class ="body_paragraph"> 
 As you can see in the image below, the script has been injected into the server and the alert window saying "hacked" pops up when the page is loaded.
 </div>
-<img src ="ontheserver.png" alt ="First Screenshot">  
+<img src ="images/ontheserver.png" alt ="Second Screenshot">  
 
 
 <h4> Resolution </h4>
@@ -85,8 +85,89 @@ ESAPI can be used to escape the HTML entity as follows: </div>
 String safe = ESAPI.encoder( ).encodeForHTML(request.getParameter("input"));
 </div>
 
-<h3> 2. Next Issue </h3>
+<h3> 2. Modifying Existing Data </h3>
+
+<h4> Location </h4>
+<div class ="body_paragraph"> 
+Affects both the POST and GET APIs, since the field is changed using the POST API and the incorrect information is retreived through GET. Again, like I said above, the GET API is where this vulnerability should be resolved.
+</div>
+
+<h4> Severity </h4>
+<div class ="body_paragraph"> 
+High. This is a major issue for the correctness of data. Users can modify position coordinates if they know the login, so they can modify the coordinates for any known log in name. Becuase of this, there is no way to know whether or not the data is actually correct.
+</div>
+
+<h4> Description of Issue </h4>
+<div class ="body_paragraph"> 
+There is no way of preventing a user from sending data to modify the position coordinates for a user who's login is known, which is makes it impossible to tell whether or not the data is valid or has simply been tampered with by a user. This issue is demonstrated as follows.
+</div>
+<img src ="images/ming_main_1.png" alt ="Third Screenshot">  
+<img src ="images/ming_get_1.png" alt ="Fourth Screenshot"> 
+<div class ="body_paragraph"> 
+Above are the logins made before my attempt to override them. The first image is the main page of the server and the second page is what is retrieved when a user queries for the login "mchow".
+</div>
 
 
+<h4> Proof of Vulnerability </h4>
+<div class ="body_paragraph"> 
+Now, consider the following data I sent to the server. I sent the same login, mchow, with different coordinates.
+</div>
+<img src ="images/bad_data.png" alt ="Fifth Screenshot"> 
+<div class ="body_paragraph"> 
+Then, the following occured:
+</div>
+<img src ="images/ming_main_2.png" alt ="Fifth Screenshot">  
+<img src ="images/ming_get_2.png" alt ="Sixth Screenshot"> 
+<div class ="body_paragraph"> 
+As you can see, the previous coordinates associated with the mchow username have been overwritten by the new coordinates I sent to the server.
+</div>
+
+<h4> Resolution </h4>
+<div class ="body_paragraph"> 
+To resolve the issue, there must be a way of preventing the user from overwriting the data. This can be done in several different ways. Some ideas include:
+<ul>
+    <li> Storing all locations associated with a particular login. This will not prevent bad data from going through, but it will prevent valid data from being erased completely. </li>
+    <li> Only allowing users to send input for a single username. That way, users cannot modify data that is not associated with their own username. </li>
+    <li> Password protecting each login. By protecting the login with a password, users can only modify data that is associated with a password that they know. This will not make it impossible to hack, but will make the task significantly more difficult. </li>
+</ul>
+</div>
+
+<h3> 3. Unprotected Access to all Data </h3>
+
+<h4> Location </h4>
+<div class ="body_paragraph"> 
+This affects the GET API, since users can automatically view the locations of everyone who has sent their coordinates to the sever.
+</div>
+
+<h4> Severity </h4>
+<div class ="body_paragraph"> 
+Low/Moderate. Although it is a privacy risk to allow data such as locations to be available to the public, most of the data has been encrypted under a false username so the actual identity of the person isn't generally revealed, it is still important to not give the public access to information they do not need access to. A security flaw like this could discourage a section of clients from using the product based on fear of others knowing their locations.
+</div>
+
+<h4> Description of Issue </h4>
+<div class ="body_paragraph"> 
+By accessing the homepage of the application, anyone in the general public can see all the locations of anyone who's ever sent their location to the server. Here is a screenshot of the main page of the application:
+</div>
+<img src ="images/all_locations.png" alt ="Seventh Screenshot"> 
+
+<h4> Proof of Vulnerability </h4>
+<div class ="body_paragraph"> 
+The screenshot above is proof that anyone, regardless of whether or not they have sent data to the server, is able to see all of the locations people have sent.
+</div>
+
+<h4> Resolution </h4>
+<div class ="body_paragraph"> 
+To resolve the issue, there must be a way of protecting the page from unauthorized viewers. There are a few ways to go about this:
+<ul>
+    <li> Make the page password protected and to view all locations, you must enter a password given to those entrusted to view everything sent. But that leads to the question of how would you determine who is allowed to see the locations? </li>
+    <li> The best way of resolving this insecurity is creating a password associated with each login and only allowing the person to view their own locations after entering their credentials. However, this would go against the purpose of the Marauder's Map, so in terms of maintaining the functionality of the product, the first option would be better.</li>
+    <li> Perhaps then the best way of securing the data is allow users to choose whom they want to share their data with from a database of users, and only then users can only view the data that they have been personally authorized to view.</li>
+</ul>
+</div>
+
+<h2> Conclusion </h2>
+<div class ="body_paragraph"> 
+Insecurities such as vulnerability to XSS are easy to fix with a few additional verifiers, and will come at no additional cost to the users. However, this product needs a deeper fix that involves restructuring the API to not allow overwriting of valid data and perhaps includes deeper protection of the privacy of people's information. This would involve restructuring the API in order to handle these security restrictions and then thoroughly follow up and evaluate again for all possible insecurities. Such a process should not take more than a few hundred dollars (mostly for labor), but would greatly improve the structure and functionality of the Marauder's Map.
+</div>
 
 </html>
